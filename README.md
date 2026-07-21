@@ -49,7 +49,10 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
 3. **Skill extraction** — Matched job descriptions against a manually curated 
    list of ~30 technical skills (Python, SQL, Excel, AWS, etc.) and 10 soft 
    skills (communication, leadership, etc.) using word-boundary regex matching 
-   to avoid false positives (e.g. preventing "r" from matching inside "for").
+   to avoid false positives (e.g. preventing "r" from matching inside "for"). 
+   The skill list was cross-checked against raw word-frequency counts across 
+   all scraped descriptions to confirm coverage and catch any commonly 
+   mentioned skills that may have been missed.
 4. **Role classification** — Categorized job titles into role groups 
    (Data Analyst, Engineer, Data Scientist, Product, etc.) using ordered 
    keyword matching, to enable skill comparisons across roles.
