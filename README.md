@@ -9,7 +9,7 @@ What skills are most in-demand across today's remote job market, and how does
 that demand differ between roles like Data Analyst, Data Scientist, and 
 Engineer? This project scrapes real job postings, extracts mentioned skills 
 using keyword matching, and analyzes frequency patterns to answer that question 
-— going beyond just data roles to compare skill demand across the broader job 
+going beyond just data roles to compare skill demand across the broader job 
 market.
 
 ## Data Source
@@ -29,23 +29,25 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
 
 ## Tools
 
-- **Python** — core language
-- **requests** — fetching data from RemoteOK's REST API
-- **BeautifulSoup** — parsing and cleaning HTML-formatted job descriptions
-- **Pandas** — data cleaning, transformation, and skill-frequency analysis
-- **Matplotlib / Seaborn** — visualization
-- **Jupyter Notebook** — analysis environment
+- **Python** - core language
+- **requests** - fetching data from RemoteOK's REST API
+- **BeautifulSoup** - parsing and cleaning HTML-formatted job descriptions
+- **Pandas** - data cleaning, transformation, and skill-frequency analysis
+- **Matplotlib / Seaborn** - visualization
+- **Jupyter Notebook** - analysis environment
 
 ## Pipeline
 
-1. **Scraping** — Fetched job listings from RemoteOK's public API across 6 
+1. **Scraping** - Fetched job listings from RemoteOK's public API across 6 
    job-category tags, with a 2-second delay between requests. Job descriptions 
    (returned as raw HTML) were cleaned into plain text using BeautifulSoup.
-2. **Cleaning** — Removed duplicate postings, handled missing values 
-   (52/418 postings, ~12%, had no location listed — filled as "Not specified" 
+
+2. **Cleaning** - Removed duplicate postings, handled missing values 
+   (52/418 postings, 12.44%, had no location listed — filled as "Not specified" 
    rather than dropped), fixed unescaped HTML entities in job titles 
    (e.g. `&amp;` → `&`), and filtered out a small number of non-English/garbage 
    listings.
+
 3. **Skill extraction** — Matched job descriptions against a manually curated 
    list of ~30 technical skills (Python, SQL, Excel, AWS, etc.) and 10 soft 
    skills (communication, leadership, etc.) using word-boundary regex matching 
@@ -53,9 +55,11 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
    The skill list was cross-checked against raw word-frequency counts across 
    all scraped descriptions to confirm coverage and catch any commonly 
    mentioned skills that may have been missed.
+
 4. **Role classification** — Categorized job titles into role groups 
    (Data Analyst, Engineer, Data Scientist, Product, etc.) using ordered 
    keyword matching, to enable skill comparisons across roles.
+
 5. **Analysis & visualization** — Computed skill frequency percentages overall 
    and by role, and built comparison charts across role pairs.
 
@@ -77,7 +81,7 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
    Power BI (35.5%), Tableau (32.3%), and Looker (19.4%) each appeared in 
    roughly a third of Data Analyst postings, but at or near 0% for Engineers, 
    confirming dashboarding tools are analyst-specific rather than general 
-   data-role skills.
+   engineering skills.
 
    ![Data Analyst vs Engineer](visuals/analyst_vs_engineer.png)
 
@@ -87,7 +91,7 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
    smaller Analyst-to-Engineer gap (58.1% vs 51.4%) than Excel or BI tools did.
 
 5. **Directional signal only, small sample** — among the limited Data 
-   Engineer (n=4) and Data Scientist (n=8) postings collected, SQL and Python 
+   Engineer (4) and Data Scientist (8) postings collected, SQL and Python 
    appeared in 100% and 75% of Data Engineer listings respectively, vs 25% 
    each for Data Scientist. Given the small sample size, this is a hint worth 
    further investigation, not a confident conclusion.
@@ -105,15 +109,13 @@ snapshot, not just data roles: `data`, `python`, `sql`, `marketing`, `design`,
 ## Reflection
 
 This project reinforced that data cleaning and validation take up far more 
-time than the analysis itself — issues like unescaped HTML entities, 
+time than the analysis itself. Issues like unescaped HTML entities, 
 non-English postings, and an initial 62% "Other" role-classification rate all 
 had to be caught and fixed before the numbers could be trusted. It also 
-highlighted the importance of checking sample sizes before drawing conclusions 
-— several role categories (Data Scientist, Data Engineer) were too small to 
+highlighted the importance of checking sample sizes before drawing conclusions, 
+several role categories (Data Scientist, Data Engineer) were too small to 
 support strong claims, and reporting that limitation honestly felt more 
-valuable than hiding it. With more time, I'd expand the scraping to pull a 
-larger and more balanced sample across role categories, and potentially pull 
-from a second job board to cross-validate findings.
+valuable than hiding it. 
 
 ## Project Structure
 
